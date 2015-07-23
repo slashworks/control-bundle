@@ -1,0 +1,27 @@
+{
+  "name": "slashworks/control-bundle",
+  "license": "LGPL-3.0+",
+  "type": "symfony-bundle",
+  "description": "Bundle for contao monitoring tool",
+  "autoload": {
+    "psr-0": { "": "./src" }
+  },
+  "require": {
+    "php": ">=5.3.9",
+    "symfony/symfony": "2.7.*",
+    "symfony/assetic-bundle": "~2.3",
+    "symfony/swiftmailer-bundle": "~2.3",
+    "symfony/monolog-bundle": "~2.4",
+    "sensio/distribution-bundle": "~3.0,>=3.0.12",
+    "sensiolabs/security-checker": "~2.0",
+    "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
+    "incenteev/composer-parameter-handler": "~2.0",
+    "ircmaxell/password-compat": "~1.0.3",
+    "propel/propel-bundle":"1.4.*",
+    "phpseclib/phpseclib": "*"
+  },
+  "require-dev": {
+    "sensio/generator-bundle": "~2.3"
+  },
+  "minimum-stability": "stable"
+}
