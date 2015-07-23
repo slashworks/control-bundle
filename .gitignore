@@ -61,3 +61,6 @@ Temporary Items
 .idea
 
 composer.phar
+
+src/Slashworks/AppBundle/Resources/private/api/keys/server/*
+!src/Slashworks/AppBundle/Resources/private/api/keys/server/.gitkeep
