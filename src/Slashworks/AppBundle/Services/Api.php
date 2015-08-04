@@ -34,6 +34,9 @@
     {
 
 
+        public static $_container = false;
+
+
         /**
          * @param $code
          * @param $message
@@ -67,6 +70,11 @@
             try {
                 $sOldErrorhandler = set_error_handler('Slashworks\AppBundle\Services\Api::errorHandler');
 
+                if(!self::$_container){
+                    throw new \InvalidArgumentException("Container not given...");
+                }
+
+
                 if (!is_scalar($method)) {
                     throw new \Exception('Method name has no scalar value');
                 }
@@ -91,7 +99,13 @@
                 $rsa = new \Crypt_RSA();
                 $rsa->loadKey($publickey);
 
-                $conairKey = file_get_contents(__DIR__ . "/../Resources/private/api/keys/server/public.key");
+
+
+                $sAppPath = self::$_container->get('kernel')->getRootDir();
+                $sVendorPath = $sAppPath."/../vendor/slashworks/control-bundle/src/Slashworks/";
+                $sKeyPath = $sVendorPath."AppBundle/Resources/private/api/keys/server/";
+
+                $conairKey = file_get_contents($sKeyPath . "public.key");
                 $aRequest  = array(
                     'pkey' => $conairKey,
                     'data' => base64_encode($rsa->encrypt($request))
@@ -112,7 +126,7 @@
                 }
                 $oRequest = curl_init($url);
                 curl_setopt($oRequest, CURLOPT_HTTPHEADER, $headers);
-                curl_setopt($oRequest, CURLOPT_TIMEOUT, 3);
+                curl_setopt($oRequest, CURLOPT_TIMEOUT, 5);
                 curl_setopt($oRequest, CURLOPT_POST, 1);
                 curl_setopt($oRequest, CURLOPT_POSTFIELDS, $sRequest);
                 curl_setopt($oRequest, CURLOPT_RETURNTRANSFER, true);
@@ -124,7 +138,7 @@
                 $rawResponse = $response;
 
                 if ($response == "") {
-                    throw new \Exception("No content received");
+                    throw new \Exception("No content received for call on: ".$url);
                 }
                 if ($iHttpStatus === 200) {
                     $response = json_decode($response, true);

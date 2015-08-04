@@ -79,6 +79,7 @@
 
 
         public static function createKeys(){
+
             $rsa = new \Crypt_RSA();
             $aKeys = $rsa->createKey(512);
             if(empty($aKeys)){
@@ -86,7 +87,7 @@
             }
 
             $sAppPath = self::$_container->get('kernel')->getRootDir();
-            $sKeyPath = $sAppPath."/../vendor/slashworks/control-bundle/src/AppBundle/Resources/private/api/keys/server/";
+            $sKeyPath = $sAppPath."/../vendor/slashworks/control-bundle/src/Slashworks/AppBundle/Resources/private/api/keys/server/";
             file_put_contents($sKeyPath."private.key",$aKeys['privatekey']);
             file_put_contents($sKeyPath."public.key",$aKeys['publickey']);
 

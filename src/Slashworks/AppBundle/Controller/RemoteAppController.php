@@ -123,6 +123,8 @@
         public function generateInitialApiZipAction($id)
         {
 
+
+
             /** @var RemoteApp $oRemoteApp */
             $oRemoteApp = RemoteAppQuery::create()->findOneById($id);
             if (!$this->check4Client($oRemoteApp->getCustomerId())) {
@@ -155,16 +157,19 @@
                 // unzip enerated module to add public control key
                 $aFiles = UnzipFile::read($sData);
 
+                $sAppPath = $this->getParameter('kernel.root_dir');
+                $sVendorPath = $sAppPath."/../vendor/slashworks/control-bundle/src/Slashworks/";
+                $sKeyPath = $sVendorPath."AppBundle/Resources/private/api/keys/server/";
                 // add control key
                 $aFiles[] = array(
                     "name"  => "control.key",
                     "dir"   => "server/private",
                     "mtime" => time(),
-                    "data"  => file_get_contents(__DIR__ . "/../Resources/private/api/keys/server/public.key")
+                    "data"  => file_get_contents($sKeyPath . "public.key")
                 );
 
                 $oZip      = new Zip();
-                Zip::$temp = __DIR__ . "/../Resources/private/tmp/";
+                Zip::$temp = $sVendorPath . "/AppBundle/Resources/private/tmp/";
                 foreach ($aFiles as $aFile) {
                     $oZip->addFile($aFile['data'], $aFile['dir'] . "/" . $aFile['name']);
                 }
@@ -224,9 +229,11 @@
             );
             try {
                 $this->get("API");
+                Api::$_container = $this->container;
                 $mResult = Api::call("doInstall", array(), $oRemoteApp->getUpdateUrl(), $oRemoteApp->getPublicKey(), $oRemoteApp);
                 if (!empty($mResult)) {
                     if (!isset($mResult['result']['result'])) {
+                        $this->get('logger')->error("[INIT ERROR] ".print_r($mResult,true));
                         throw new \Exception($this->get("translator")->trans("remote_app.api.init.error"));
                     }
 

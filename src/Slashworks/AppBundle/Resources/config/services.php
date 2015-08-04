@@ -21,7 +21,8 @@
       */
     use Symfony\Component\DependencyInjection\Definition;
 
+
     $container->setDefinition('API', new Definition(
         'Slashworks\AppBundle\Services\Api',
-        array()
+        array($this->get('kernel')->getRootDir())
     ));
