@@ -119,7 +119,9 @@
         {
 
             // include symfony requirements class
-            require_once dirname(__FILE__) . '/../../../../app/SymfonyRequirements.php';
+            $sAppPath = $this->getParameter('kernel.root_dir');
+            require_once $sAppPath.'/SymfonyRequirements.php';
+
 
             // prevent from being called directly after install...
             if ($this->container->getParameter('database_password') !== null) {

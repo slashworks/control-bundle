@@ -85,7 +85,8 @@
                 throw new \Exception("Key generation failed...");
             }
 
-            $sKeyPath = __DIR__."/../../AppBundle/Resources/private/api/keys/server/";
+            $sAppPath = self::$_container->get('kernel')->getRootDir();
+            $sKeyPath = $sAppPath."/../vendor/slashworks/control-bundle/src/AppBundle/Resources/private/api/keys/server/";
             file_put_contents($sKeyPath."private.key",$aKeys['privatekey']);
             file_put_contents($sKeyPath."public.key",$aKeys['publickey']);
 
@@ -228,7 +229,8 @@
 
             $oDumper = new Dumper();
             $sYaml   = $oDumper->dump($sYmlDump, 99, 0, true, false);
-            $sPath   = __DIR__ . '/../../../../app/config/parameters.yml';
+            $sAppPath = self::$_container->get('kernel')->getRootDir();
+            $sPath   = $sAppPath. '/config/parameters.yml';
             $sYaml   = str_replace("'", '', $sYaml);
             file_put_contents($sPath, $sYaml);
         }
@@ -279,15 +281,15 @@
         private static function _insertDump()
         {
 
-
-            $sStructureDump = file_get_contents(__DIR__ . "/../../../../app/Resources/data/database.sql");
+            $sAppPath = self::$_container->get('kernel')->getRootDir();
+            $sStructureDump = file_get_contents($sAppPath . "/Resources/data/database.sql");
             $iResult        = self::$_connection->exec($sStructureDump);
 
             if ($iResult === false) {
                 throw new Exception("Error while excecuting database query... ");
             }
 
-            $sDataDump = file_get_contents(__DIR__ . "/../../../../app/Resources/data/data.sql");
+            $sDataDump = file_get_contents($sAppPath . "/Resources/data/data.sql");
             $iResult   = self::$_connection->exec($sDataDump);
 
 
