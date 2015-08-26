@@ -218,6 +218,7 @@
             // get class
             $this->getContainer()->get('API');
             // do call
+            Api::$_container = $this->getContainer();
             $aReturn = Api::call('getData', array(
                 array(
                     'log'    => $oRemoteApp->getIncludelog(),
