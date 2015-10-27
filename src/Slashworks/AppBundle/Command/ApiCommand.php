@@ -21,6 +21,7 @@
 
     namespace Slashworks\AppBundle\Command;
 
+    use Cron\CronExpression;
     use Slashworks\AppBundle\Model\RemoteApp;
     use Slashworks\AppBundle\Model\RemoteAppQuery;
     use Slashworks\AppBundle\Model\RemoteHistoryContao;
@@ -180,28 +181,8 @@
         private function _parseCrontab($sDatetime, $sCrontab)
         {
 
-            $aTime    = explode(' ', date('i G j n w', strtotime($sDatetime)));
-            $sCrontab = explode(' ', $sCrontab);
-            foreach ($sCrontab as $k => &$v) {
-                $v = explode(',', $v);
-                foreach ($v as &$v1) {
-                    $v1 = preg_replace(array(
-                                           '/^\*$/',
-                                           '/^\d+$/',
-                                           '/^(\d+)\-(\d+)$/',
-                                           '/^\*\/(\d+)$/'
-                                       ), array(
-                                           'true',
-                                           intval($aTime[$k]) . '===\0',
-                                           '(\1<=' . intval($aTime[$k]) . ' and ' . intval($aTime[$k]) . '<=\2)',
-                                           intval($aTime[$k]) . '%\1===0'
-                                       ), $v1);
-                }
-                $v = '(' . implode(' or ', $v) . ')';
-            }
-            $sCrontab = implode(' and ', $sCrontab);
-
-            return eval('return ' . $sCrontab . ';');
+            $cron = CronExpression::factory($sCrontab);
+            return $cron->isDue($sDatetime);
         }
 
 

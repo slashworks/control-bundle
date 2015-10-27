@@ -30,4 +30,24 @@
     class Country extends BaseCountry
     {
 
+        /**
+         * Get the [en] column value.
+         *
+         * @return string
+         */
+        public function getEn()
+        {
+            return utf8_decode(utf8_encode($this->en));
+        }
+
+        /**
+         * Get the [de] column value.
+         *
+         * @return string
+         */
+        public function getDe()
+        {
+            return utf8_decode(utf8_encode($this->de));
+        }
+
     }
