@@ -309,7 +309,8 @@
 
             if ($iLvdc < strtotime("-7 days")) {
                 $aRemoteApps = RemoteAppQuery::create()->filterByWebsiteHash(null, \Criteria::ISNOTNULL);
-                $lico        = $sLico . "/api/lvdc/" . base64_encode($this->_getSiteURL()) . "/" . $aRemoteApps->count();
+                $lico        = $sLico . "/api/lvdc/" . base64_encode($this->_getSiteURL());
+
                 try {
                     $res = @file_get_contents($lico);
                     if ($res === false) {
@@ -382,6 +383,13 @@
                     }
                 }
             } catch (\Exception $e) {
+
+
+                echo "<pre>";
+                var_dump($e->getFile());
+                var_dump($e->getLine());
+                die();
+
                 $this->get('logger')->error($e->getMessage());
                 $aResponse = array(
                     "error"   => true,

@@ -87,6 +87,7 @@
         'api.error.heading'                           => 'Fehler',
         'remote_app.api_call'                         => 'Manuelle Abfrage',
         'remote_app.api_call_all'                     => 'Alle Installationen manuell abfragen',
+        'remote_app.client_update_all'                => 'Alle Clients aktualisieren',
         'remote_app.lastlog.title'                    => 'Letzter Log-eintrag',
         'remote_app.log.date'                         => 'Datum',
         'remote_app.log.statuscode'                   => 'Statuscode',

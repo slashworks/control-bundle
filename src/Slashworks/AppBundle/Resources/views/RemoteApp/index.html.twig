@@ -5,6 +5,7 @@
         <h1 class="page-header" style="">{{ "remote_app.list"|trans }}</h1>
 
         <div class="head-controls">
+            <a href="#" onclick="SYSTEM.runAllUpdateClientCalls();" class="btn btn-primary btn-circle" data-toggle="tooltip" data-placement="top" data-original-title="{{ "remote_app.client_update_all"|trans }}"><i class="fa fa-upload"></i></a>
             <a href="#" onclick="SYSTEM.runAllSingleApiCalls();" class="btn btn-primary btn-circle" data-toggle="tooltip" data-placement="top" data-original-title="{{ "remote_app.api_call_all"|trans }}"><i class="fa fa-refresh"></i></a>
             <a href="{{ path('remote_app_new') }}" class="btn btn-primary btn-circle" data-toggle="tooltip" data-placement="top" data-original-title="{{ "remote_app.new"|trans }}"><i class="fa fa-plus"></i></a>
         </div>

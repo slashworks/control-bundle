@@ -32,7 +32,6 @@ SYSTEM.runSingleApiCall = function (id, url, obj) {
         $("#lastRun_" + id).fadeOut("fast");
         var oCurrRow = $("#row_" + id);
         this.ajaxLoadInfo(true);
-        console.log(url);
         setTimeout(function () {
             $.ajax({
                 timeout: 60000,
@@ -146,6 +145,64 @@ SYSTEM.apiCall = function (url, bReload, doNextCall, nextId, nextUrl, nextObj) {
 };
 
 
+
+
+SYSTEM.updateClient = function (id,url, bReload, doNextCall, nextId, nextUrl, nextObj) {
+    if (typeof bReload == "undefined") {
+        bReload = false;
+    }
+    if (typeof doNextCall == "undefined") {
+        doNextCall = false;
+    }
+    var _self = this;
+
+    var spinIcon = 'fa-cog fa-spin fa-working';
+    var callIcon = 'fa-upload';
+
+    var $callIcon = $('#update_client_' + id);
+    $callIcon.removeClass(callIcon);
+    $callIcon.addClass(spinIcon);
+
+
+    if (SYSTEM.confirm("Sind Sie sicher das Sie eine Aktualisierung vornehmen möchten?")) {
+        $("#iApiInitDownload").remove();
+        this.ajaxLoadInfo(true);
+        $.ajax({
+            url: url,
+            success: function (data, status) {
+                if (data.success) {
+                    if (data.success == true) {
+                        SYSTEM.notify(data.message, "success");
+                        _self.ajaxLoadInfo(false);
+                        if (bReload == true) {
+                            setTimeout(function () {
+                                document.location.reload();
+                            }, 2000);
+                        }
+                        $callIcon.removeClass(spinIcon);
+                        $callIcon.addClass(callIcon);
+                    } else {
+                        SYSTEM.notify(data.message, "error");
+                        _self.ajaxLoadInfo(false);
+                        $callIcon.removeClass(spinIcon);
+                        $callIcon.addClass(callIcon);
+                    }
+                } else {
+                    SYSTEM.notify(data.message, "error");
+                    _self.ajaxLoadInfo(false);
+                    $callIcon.removeClass(spinIcon);
+                    $callIcon.addClass(callIcon);
+                }
+            }
+        });
+    }else{
+        $callIcon.removeClass(spinIcon);
+        $callIcon.addClass(callIcon);
+    }
+    return false;
+};
+
+
 SYSTEM.runAllSingleApiCalls = function (index) {
 
     var buttons = $(".api_pull");
@@ -157,6 +214,23 @@ SYSTEM.runAllSingleApiCalls = function (index) {
             $(document).trigger("api-call-row-update-" + data.Id, [data]);
             if (buttons[index + 1]) {
                 SYSTEM.runAllSingleApiCalls((index + 1));
+            }
+        });
+        $(buttons[index]).trigger("click");
+    }
+
+};
+SYSTEM.runAllUpdateClientCalls = function (index) {
+
+    var buttons = $(".api_update");
+    if (!index) {
+        index = 0;
+    }
+    if (buttons[index]) {
+        $(buttons[index]).bind("update-all-complete", function (data) {
+            $(document).trigger("update-all-row-update-" + data.Id, [data]);
+            if (buttons[index + 1]) {
+                SYSTEM.runAllUpdateClientCalls((index + 1));
             }
         });
         $(buttons[index]).trigger("click");
