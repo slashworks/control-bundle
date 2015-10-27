@@ -24,5 +24,5 @@
 
     $container->setDefinition('API', new Definition(
         'Slashworks\AppBundle\Services\Api',
-        array($this->get('kernel')->getRootDir())
+        array($this->container->getParameter('kernel.root_dir'))
     ));
