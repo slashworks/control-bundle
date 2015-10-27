@@ -21,12 +21,8 @@
             "Customer":"<a href=\"#\" onclick=\"SYSTEM.openModal('{{ path("backend_system_customer_info",{'id':entity.customer.id}) }}');return false;\">{{ entity.customer.name }}</a>",
             "action":"{% spaceless %}
                 {% if entity.activated %}<a href=\"#\" onclick=\"SYSTEM.openModal('{{ path("remote_app_details",{'id':entity.id}) }}');return false;\" class=\"action-button\" data-toggle=\"tooltip\" data-placement=\"top\" data-original-title=\"{{ "remote_app.api_details"|trans }}\"><i class=\"fa fa-search-plus\"></i></a>
-                    {% if entity.WebsiteHash == "" %}
-                            <a href=\"#\" onclick=\"return SYSTEM.apiCall('{{ path('remote_api_install',{"id": entity.id}) }}', false, true,'{{ entity.id }}','{{ path("remote_app_single_api_call", { "id": entity.id }) }}',this);\" class=\"action-button\" data-toggle=\"tooltip\" data-placement=\"top\" data-original-title=\"{{ "remote_app.api_install"|trans }}\"><i class=\"fa fa-key\"></i></a>
-                    {% else %}
-                        <a href=\"#\" onclick=\"return SYSTEM.apiCall('{{ path('remote_api_init_update',{"id": entity.id}) }}');\" class=\"action-button\" data-toggle=\"tooltip\" data-placement=\"top\" data-original-title=\"{{ "remote_app.api_update"|trans }}\"><i class=\"fa fa-upload\"></i></a>
-                        <a class=\"api_pull action-button\" href=\"#\" onclick=\"SYSTEM.runSingleApiCall('{{ entity.id }}','{{ path("remote_app_single_api_call", { "id": entity.id }) }}',this);return false;\" data-toggle=\"tooltip\" data-placement=\"top\" data-original-title=\"{{ "remote_app.api_call"|trans }}\"><i id=\"api_call_{{ entity.id }}\" class=\"fa fa-refresh\"></i></a>
-                    {% endif %}
+                    <a href=\"#\" onclick=\"return SYSTEM.apiCall('{{ path('remote_api_init_update',{"id": entity.id}) }}');\" class=\"action-button\" data-toggle=\"tooltip\" data-placement=\"top\" data-original-title=\"{{ "remote_app.api_update"|trans }}\"><i class=\"fa fa-upload\"></i></a>
+                    <a class=\"api_pull action-button\" href=\"#\" onclick=\"SYSTEM.runSingleApiCall('{{ entity.id }}','{{ path("remote_app_single_api_call", { "id": entity.id }) }}',this);return false;\" data-toggle=\"tooltip\" data-placement=\"top\" data-original-title=\"{{ "remote_app.api_call"|trans }}\"><i id=\"api_call_{{ entity.id }}\" class=\"fa fa-refresh\"></i></a>
                     <ul class=\"nav context\">
                         <li class=\"dropdown\">
                             <a class=\"dropdown-toggle action-button\" data-toggle=\"dropdown\" href=\"#\">

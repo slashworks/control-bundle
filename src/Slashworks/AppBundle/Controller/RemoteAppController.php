@@ -207,21 +207,6 @@
         public function initUpdateCallAction($id)
         {
 
-            return $this->initInstallCallAction($id);
-        }
-
-
-        /**
-         * initiate installation of complete monitoring module
-         *
-         * @param $id
-         *
-         * @return \Symfony\Component\HttpFoundation\Response
-         * @throws \Exception
-         */
-        public function initInstallCallAction($id)
-        {
-
             $oRemoteApp = RemoteAppQuery::create()->findOneById($id);
             $sResult    = array(
                 "success" => false,
@@ -262,7 +247,6 @@
 
             return $response;
         }
-
 
         /**
          * Update monitoring module
