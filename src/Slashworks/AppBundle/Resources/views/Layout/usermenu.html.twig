@@ -1,5 +1,20 @@
 {% extends "SlashworksBackendBundle::Layout/usermenu.html.twig" %}
 
+
+
+{% block mainmenu_items %}
+    <li class="dropdown-header">
+        Version {{ "version.txt"|content }}
+    </li>
+    <li class="divider"></li>
+    <li>
+        <a href="{{ path("remote_app") }}"><i class="fa fa-cube"></i> {{"mainmenu.remote_app"|trans}}</a>
+    </li>
+    {{ parent() }}
+{% endblock %}
+
+
+
 {% block system_mainmenu_items %}
     <li>
         <a href="{{ path("backend_system_customer") }}"><i class="fa fa-briefcase"></i> {{"mainmenu.system.customers"|trans}}</a>
@@ -16,9 +31,3 @@
     </li>
 {% endblock %}
 
-{% block mainmenu_items %}
-    <li>
-        <a href="{{ path("remote_app") }}"><i class="fa fa-cube"></i> {{"mainmenu.remote_app"|trans}}</a>
-    </li>
-    {{ parent() }}
-{% endblock %}

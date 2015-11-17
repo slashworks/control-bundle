@@ -26,3 +26,5 @@
         'Slashworks\AppBundle\Services\Api',
         array($this->container->getParameter('kernel.root_dir'))
     ));
+
+    $container->register('app.twig_extension', 'Slashworks\AppBundle\Twig\ContentExtension')->addArgument($this->container->getParameter('kernel.root_dir'))->setPublic(false)->addTag('twig.extension');
