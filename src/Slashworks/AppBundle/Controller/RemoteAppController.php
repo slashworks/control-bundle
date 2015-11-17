@@ -122,9 +122,6 @@
          */
         public function generateInitialApiZipAction($id)
         {
-
-
-
             /** @var RemoteApp $oRemoteApp */
             $oRemoteApp = RemoteAppQuery::create()->findOneById($id);
             if (!$this->check4Client($oRemoteApp->getCustomerId())) {
@@ -138,9 +135,8 @@
             // get lico url
             $sLico = SystemSettings::get("lico");
 
-
             // build url and make call
-            $lico       = $sLico . "/api/generate/module/" . base64_encode($this->_getSiteURL()) . "/" . base64_encode($oRemoteApp->getDomain());
+            $lico       = $sLico . "/api/2.0/generate/module/" . base64_encode($this->_getSiteURL()) . "/" . base64_encode($oRemoteApp->getDomain());
             $sData      = @file_get_contents($lico);
             $sPublicKey = "";
             foreach ($http_response_header as $sHead) {
@@ -309,7 +305,7 @@
 
             if ($iLvdc < strtotime("-7 days")) {
                 $aRemoteApps = RemoteAppQuery::create()->filterByWebsiteHash(null, \Criteria::ISNOTNULL);
-                $lico        = $sLico . "/api/lvdc/" . base64_encode($this->_getSiteURL());
+                $lico        = $sLico . "/api/2.0/lvdc/" . base64_encode($this->_getSiteURL());
 
                 try {
                     $res = @file_get_contents($lico);

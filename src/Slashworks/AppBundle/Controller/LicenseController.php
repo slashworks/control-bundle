@@ -124,7 +124,7 @@
             /*
              * Check license against license-server
              */
-            $oRequest = curl_init($sLico . "/api/check/license");
+            $oRequest = curl_init($sLico . "/api/2.0/check/license");
             curl_setopt($oRequest, CURLOPT_HTTPHEADER, $aHeaders);
             curl_setopt($oRequest, CURLOPT_TIMEOUT, 120);
             curl_setopt($oRequest, CURLOPT_POST, 1);
