@@ -160,7 +160,7 @@
 
             $oDumper = new Dumper();
             $sYaml   = $oDumper->dump($sYmlDump, 99, 0, true, false);
-            $sPath   = __DIR__ . '/../../../../app/config/parameters.yml';
+            $sPath   = __DIR__ . '/../../../../../../../app/config/parameters.yml';
             $sYaml   = str_replace("'", '', $sYaml);
             file_put_contents($sPath, $sYaml);
         }
@@ -185,23 +185,21 @@
          */
         private static function _insertDump()
         {
-
-
-            $sStructureDump = file_get_contents(__DIR__ . "/../../../../app/Resources/data/database.sql");
+            self::$_connection->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION );
+            $sStructureDump = file_get_contents(__DIR__ . "/../../../../../../../app/Resources/data/database.sql");
             $iResult        = self::$_connection->exec($sStructureDump);
 
             if ($iResult === false) {
-                throw new Exception("Error while excecuting database query... ");
+                throw new Exception("Error while excecuting schema query... ");
             }
 
-            $sDataDump = file_get_contents(__DIR__ . "/../../../../app/Resources/data/data.sql");
+            $sDataDump = file_get_contents(__DIR__ . "/../../../../../../../app/Resources/data/data.sql");
             $iResult   = self::$_connection->exec($sDataDump);
 
 
             if ($iResult === false) {
-                throw new Exception("Error while excecuting database query... ");
+                throw new Exception("Error while excecuting data query... ");
             }
-
 
             return true;
         }
