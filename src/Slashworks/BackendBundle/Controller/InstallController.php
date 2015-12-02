@@ -145,7 +145,12 @@
                     return $this->render('SlashworksBackendBundle:Install:install.html.twig', array("form" => $form->createView(), "error" => true, "errorMessage" => $e->getMessage()));
                 }
             } else {
-                return $this->render('SlashworksBackendBundle:Install:install.html.twig', array("form" => $form->createView(), "error" => true, "errorMessage" => false));
+                $errors = array();
+                foreach ($form->getErrors() as $key => $error) {
+                    $errors[] = $error->getMessage();
+                }
+
+                return $this->render('SlashworksBackendBundle:Install:install.html.twig', array("form" => $form->createView(), "error" => true, "errorMessage" => implode('<br>',$errors)));
             }
         }
     }

@@ -45,7 +45,7 @@ return array (
   "install.label.adminEmail" => 'E-Mail:',
   "install.label.adminPassword" => 'Passwort:',
   "install.label.dbDriver" => 'Datenbank Treiber:',
-  "install.label.dbHost" => 'Datenbank Host:',
+  "install.label.dbHost" => 'Datenbank Host oder Socket:',
   "install.label.dbPort" => 'Datenbank Port:',
   "install.label.dbName" => 'Datenbank Name:',
   "install.label.dbUser" => 'Datenbank Benutzer:',
@@ -138,5 +138,6 @@ return array (
     "system.next" => "Weiter",
     "system.agree_license" => "Hiermit akzeptiere ich die Lizenzbedingungen und möchte mit der Installation beginnen",
     "system.back" => "Zurück",
-  "install.loaded_ini_path" => "Derzeit geladene php.ini"
+  "install.loaded_ini_path" => "Derzeit geladene php.ini",
+  "install.bad_database_credentials" => "Datenbankzugriff fehlgeschlagen."
 );

@@ -134,8 +134,8 @@
                                   )
                 )
                 ->add('dbPort', 'text', array(
-                                  'required'    => true,
-                                  'data'        => 3306,
+                                  'required'    => false,
+                                  'data'        => '3306',
                                   'constraints' => array(
                                       new NotBlank(),
                                       new Length(array('min' => 4)),
